@@ -109,7 +109,7 @@ int main()
 
 
 
-
+   fflush(stdout);
    pthread_t readers[numOfReaders];
    pthread_t writer[1];
    pthread_attr_t	attr[1];
