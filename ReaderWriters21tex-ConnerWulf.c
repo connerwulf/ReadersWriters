@@ -18,8 +18,8 @@ struct timeval mytimeval;
 struct shared_dat{ int value;  /* shared variable to store result*/};
 struct shared_dat  *counter;
 
-int in_cs;
-int threadsReading;
+int in_cs = 0;
+int threadsReading = 0;
 sem_t reader, writer;
 int getpid();
 
@@ -96,8 +96,6 @@ void * writer_thread(void *arg)
 int main()
 {
   int numOfReaders = 0;
-  in_cs = 0;
-  threadsReading = 0;
   counter = (struct shared_dat *) malloc(sizeof(struct shared_dat));
 	counter->value = 0;
   sem_init(&reader,0,1);
