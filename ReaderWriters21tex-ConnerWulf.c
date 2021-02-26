@@ -103,10 +103,10 @@ int main()
   sem_init(&writer,0,1);
 
 
-      printf("How many readers should there be? (1 <= n <= 16)\n");
-      scanf(" %d", &numOfReaders);
+      printf("How many readers should there be? (1 <= n <= 16): ");
+      scanf("%d", &numOfReaders);
       printf("%d", numOfReaders);
-    
+
 
 
 
