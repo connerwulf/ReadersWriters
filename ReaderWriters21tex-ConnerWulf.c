@@ -36,6 +36,7 @@ void * reader_thread(void *arg)
   {
     if(in_cs != true)
     {
+      print("test")
       if(threadsReading == 0)
       {
         sem_wait(&writer);
