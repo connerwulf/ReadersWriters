@@ -20,7 +20,8 @@ struct shared_dat  *counter;
 
 bool in_cs;
 int threadsReading;
-sem_t readers, writer;
+sem_t reader, writer;
+int getpid();
 
 
 /****************************************************************
