@@ -105,6 +105,7 @@ int main()
 
   printf("How many readers should there be? (1 <= n <= 16)\n");
   scanf("%d\n", &numOfReaders);
+  print("Test");
   printf("%d\n", numOfReaders);
 
 
