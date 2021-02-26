@@ -132,7 +132,7 @@ int main()
   {
     pthread_create(&readers[i], &attr[0], reader_thread, NULL);
   }
-  printf("Waiting for Threads...\n")
+  printf("Waiting for Threads...\n");
   for(int j = 0; j < numOfReaders; j++)
   {
     if(j = 0)
