@@ -117,38 +117,38 @@ int main()
    pthread_attr_init(&attr[0]);
    pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
 
-//
-//   int k = (int) (numOfReaders/2);
-//   int i;
-//   for(i = 0; i < k; i++)
-//   {
-//     pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
-//   }
-//
-// /* Create the writer thread*/
-//   pthread_create(&writer[0], &attr[0], writer_thread, NULL);
-//
-//   for(i = k ; i < numOfReaders; i++)
-//   {
-//     pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
-//   }
-//
-//   for(int j = 0; j < numOfReaders; j++)
-//   {
-//     if(j = 0)
-//     {
-//       pthread_join(writer[j], NULL);
-//     }
-//     pthread_join(readers[j], NULL);
-//   }
-//
-//
-//
-// 	// printf("from parent counter  =  %d\n", counter->value);
-//   // getrusage(RUSAGE_SELF, &mytiming);
-//   // printf("Time used is sec: %d, usec %d\n",mytiming.ru_utime.tv_sec,mytiming.ru_utime.tv_usec);
-//   // printf("System Time used is sec: %d, usec %d\n",mytiming.ru_stime.tv_sec,mytiming.ru_stime.tv_usec);
-// 	// printf("---------------------------------------------------------------------------\n");
+
+  int k = (int) (numOfReaders/2);
+  int i;
+  for(i = 0; i < k; i++)
+  {
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
+  }
+
+/* Create the writer thread*/
+  pthread_create(&writer[0], &attr[0], writer_thread, NULL);
+
+  for(i = k ; i < numOfReaders; i++)
+  {
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
+  }
+
+  for(int j = 0; j < numOfReaders; j++)
+  {
+    if(j = 0)
+    {
+      pthread_join(writer[j], NULL);
+    }
+    pthread_join(readers[j], NULL);
+  }
+
+
+
+	// printf("from parent counter  =  %d\n", counter->value);
+  // getrusage(RUSAGE_SELF, &mytiming);
+  // printf("Time used is sec: %d, usec %d\n",mytiming.ru_utime.tv_sec,mytiming.ru_utime.tv_usec);
+  // printf("System Time used is sec: %d, usec %d\n",mytiming.ru_stime.tv_sec,mytiming.ru_stime.tv_usec);
+	// printf("---------------------------------------------------------------------------\n");
 	 printf("\t\t	End of simulation\n");
 
 	exit(0);
