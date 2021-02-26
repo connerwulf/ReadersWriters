@@ -7,37 +7,55 @@
 #include <sys/resource.h>
 #include <stdlib.h>
 #include <semaphore.h>
+#include <stdbool.h>
 
 
 /* Student: Conner Wulf. */
 
-
 //Global Variables
 struct rusage mytiming;
 struct timeval mytimeval;
-
-struct shared_dat
-   {
-   int value;     /* shared variable to store result*/
-   };
-
+struct shared_dat{ int value;  /* shared variable to store result*/};
 struct shared_dat  *counter;
-int getpid();
-//pthread_mutex_t mutex;
-sem_t semaphore;
-int jumps=0;
+
+bool in_cs;
+int threadsReading;
+sem_t readers, writer;
+
 
 /****************************************************************
-* This function increases the value of shared variable "counter"
-  by one 2750000 times, and by 100 when count-> is a multiple of 100
+* This function reads the value of shared variable "counter"
+  by 250 million times
 ****************************************************************/
 void * reader_thread(void *arg)
 {
-	int i;
+	int i = 0;
   int value;
-  for(i = 0; i < 250000000)
+  while(i < 250000000)
   {
-    value = counter->value;
+    if(in_cs != true)
+    {
+      if(threadsReading == 0)
+      {
+        sem_wait(&writer);
+      }
+
+      sem_wait(&reader);
+        threadsReading++;
+      sem_post(&reader);
+
+      value = counter->value;
+
+      sem_wait(&reader);
+        threadsReading--;
+      sem_post(&reader);
+
+      if(threadsReading == 0)
+      {
+        sem_post(&writer);
+      }
+      i++;
+    }
   }
 	printf("Reader %d has finished", getpid());
   return(NULL);
@@ -45,8 +63,8 @@ void * reader_thread(void *arg)
 
 
 /****************************************************************
-This function increases the value of shared variable "counter"
-by one 275000 times
+This function writes to the value of shared variable "counter"
+by one 25000 times
 ****************************************************************/
 void * writer_thread(void *arg)
 {
@@ -54,13 +72,17 @@ void * writer_thread(void *arg)
 
 	while (line < 25000)
 	{
-    line++;
+    in_cs = true;
+    sem_wait(&writer);
+
     /* Critical Section */
 	  counter->value = counter->value + 1;
-
+    in_cs = false;
+    sem_post(&reader);
+    line++;
    }
-	   printf("from process2 counter = %d\n", counter->value);
-return(NULL);
+     printf("Writer finished: Counter = %d\n", counter->value);
+     return(NULL);
 }
 
 
@@ -70,56 +92,61 @@ return(NULL);
 ****************************************************************/
 int main()
 {
-  int numOfReaders;
-  printf("How many readers should there be?\n");
-  scanf("%d", numOfReaders);
-  for(int i = 0; i<10;i++)
-  {
+  int numOfReaders = 0;
+  in_cs = false;
+  threadsReading = 0;
+  counter = (struct shared_dat *) malloc(sizeof(struct shared_dat));
+	counter->value = 0;
+  sem_init(&readers,0,1);
+  sem_init(&writer,0,1);
 
-    printf("%d",numOfReaders);
-  }
-/*
+  while(numOfReaders < 1 || numOfReaders > 16)
+    {
+      printf("How many readers should there be? (1 <= n <= 16)\n");
+      scanf("%d", numOfReaders);
+    }
+
+
+
   pthread_t readers[numOfReaders];
   pthread_t writer[1];
   pthread_attr_t	attr[1];
-  int k = (int) (numOfReaders/2);
-*/
-/* Required to schedule thread independently.
- Otherwise use NULL in place of attr.
+/* Required to schedule thread independently.*/
   pthread_attr_init(&attr[0]);
   pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
 
-for(int i = 0; i < k; i++)
-{
-  pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
-}
-*/
-/* Create the writer thread
-pthread_create(&writer[0], &attr[0], writer_thread, NULL);
 
-for(i = k ; i < numOfReaders ; i++)
-{
-  pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
-}
-
-for(int j = 0; j < numOfReaders; j++)
-{
-  if(j = 0)
+  int k = (int) (numOfReaders/2);
+  for(int i = 0; i < k; i++)
   {
-    pthread_join(writer[j], NULL);
-
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
   }
-  pthread_join(readers[j], NULL);
-}
 
-*/
+/* Create the writer thread*/
+  pthread_create(&writer[0], &attr[0], writer_thread, NULL);
+
+  for(i = k ; i < numOfReaders; i++)
+  {
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
+  }
+
+  for(int j = 0; j < numOfReaders; j++)
+  {
+    if(j = 0)
+    {
+      pthread_join(writer[j], NULL);
+    }
+    pthread_join(readers[j], NULL);
+  }
+
+
 
 	// printf("from parent counter  =  %d\n", counter->value);
   // getrusage(RUSAGE_SELF, &mytiming);
   // printf("Time used is sec: %d, usec %d\n",mytiming.ru_utime.tv_sec,mytiming.ru_utime.tv_usec);
   // printf("System Time used is sec: %d, usec %d\n",mytiming.ru_stime.tv_sec,mytiming.ru_stime.tv_usec);
 	// printf("---------------------------------------------------------------------------\n");
-	// printf("\t\t	End of simulation\n");
+	 printf("\t\t	End of simulation\n");
 
 	exit(0);
 
