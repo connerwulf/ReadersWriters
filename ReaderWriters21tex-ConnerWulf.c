@@ -117,7 +117,7 @@ int main()
    pthread_attr_init(&attr[0]);
    pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
 
-
+   printf("Creating Threads...\n")
   int k = (int) (numOfReaders/2);
   int i;
   for(i = 0; i < k; i++)
@@ -132,7 +132,7 @@ int main()
   {
     pthread_create(&readers[i], &attr[0], reader_thread, NULL);
   }
-
+  printf("Waiting for Threads...\n")
   for(int j = 0; j < numOfReaders; j++)
   {
     if(j = 0)
