@@ -7,7 +7,7 @@
 #include <sys/resource.h>
 #include <stdlib.h>
 #include <semaphore.h>
-#include <stdbool.h>
+
 
 
 /* Student: Conner Wulf. */
@@ -18,7 +18,7 @@ struct timeval mytimeval;
 struct shared_dat{ int value;  /* shared variable to store result*/};
 struct shared_dat  *counter;
 
-bool in_cs;
+int in_cs;
 int threadsReading;
 sem_t reader, writer;
 int getpid();
@@ -34,7 +34,7 @@ void * reader_thread(void *arg)
   int value;
   while(i < 250000000)
   {
-    if(in_cs != true)
+    if(in_cs != 1)
     {
       printf("test");
       if(threadsReading == 0)
@@ -74,12 +74,12 @@ void * writer_thread(void *arg)
 
 	while (line < 25000)
 	{
-    in_cs = true;
+    in_cs = 1;
     sem_wait(&writer);
 
     /* Critical Section */
 	  counter->value = counter->value + 1;
-    in_cs = false;
+    in_cs = 0;
     sem_post(&reader);
     line++;
    }
@@ -95,7 +95,7 @@ void * writer_thread(void *arg)
 int main()
 {
   int numOfReaders = 0;
-  in_cs = false;
+  in_cs = 0;
   threadsReading = 0;
   counter = (struct shared_dat *) malloc(sizeof(struct shared_dat));
 	counter->value = 0;
