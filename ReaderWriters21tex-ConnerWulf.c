@@ -98,7 +98,7 @@ int main()
   threadsReading = 0;
   counter = (struct shared_dat *) malloc(sizeof(struct shared_dat));
 	counter->value = 0;
-  sem_init(&readers,0,1);
+  sem_init(&reader,0,1);
   sem_init(&writer,0,1);
 
   while(numOfReaders < 1 || numOfReaders > 16)
@@ -118,7 +118,8 @@ int main()
 
 
   int k = (int) (numOfReaders/2);
-  for(int i = 0; i < k; i++)
+  int i;
+  for(i = 0; i < k; i++)
   {
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
   }
