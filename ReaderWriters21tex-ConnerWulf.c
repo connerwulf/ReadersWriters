@@ -105,18 +105,18 @@ int main()
 
       printf("How many readers should there be? (1 <= n <= 16):");
       scanf("%d", &numOfReaders);
-      printf("\n%d", numOfReaders);
+      printf("%d", numOfReaders);
 
 
 
-//
-//   pthread_t readers[numOfReaders];
-//   pthread_t writer[1];
-//   pthread_attr_t	attr[1];
-// /* Required to schedule thread independently.*/
-//   pthread_attr_init(&attr[0]);
-//   pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
-//
+
+   pthread_t readers[numOfReaders];
+   pthread_t writer[1];
+   pthread_attr_t	attr[1];
+ /* Required to schedule thread independently.*/
+   pthread_attr_init(&attr[0]);
+   pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
+
 //
 //   int k = (int) (numOfReaders/2);
 //   int i;
