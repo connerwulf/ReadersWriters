@@ -34,9 +34,10 @@ void * reader_thread(void *arg)
   int value;
   while(i < 250000000)
   {
+      printf("test- reader");
     if(in_cs != 1)
     {
-      printf("test");
+
       if(threadsReading == 0)
       {
         sem_wait(&writer);
