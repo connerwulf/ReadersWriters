@@ -102,12 +102,11 @@ int main()
   sem_init(&reader,0,1);
   sem_init(&writer,0,1);
 
-  while(numOfReaders < 1 || numOfReaders > 16)
-    {
+
       printf("How many readers should there be? (1 <= n <= 16)\n");
       scanf(" %d", &numOfReaders);
       printf("%d", numOfReaders);
-    }
+    
 
 
 
