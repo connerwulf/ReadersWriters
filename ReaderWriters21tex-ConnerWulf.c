@@ -34,7 +34,7 @@ void * reader_thread(void *arg)
   int value;
   while(i < 250000000)
   {
-      printf("test- reader");
+
     if(in_cs != 1)
     {
 
@@ -72,7 +72,7 @@ by one 25000 times
 void * writer_thread(void *arg)
 {
 	int line = 0;
-
+  printf("test- writer");
 	while (line < 25000)
 	{
     in_cs = 1;
