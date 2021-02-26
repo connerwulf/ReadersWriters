@@ -94,7 +94,7 @@ void * writer_thread(void *arg)
 ****************************************************************/
 int main()
 {
-  int numOfReaders = 0;
+  char numOfReaders = 0;
   in_cs = false;
   threadsReading = 0;
   counter = (struct shared_dat *) malloc(sizeof(struct shared_dat));
@@ -104,9 +104,9 @@ int main()
 
 
   printf("How many readers should there be? (1 <= n <= 16)\n");
-  scanf("%d\n", &numOfReaders);
+  scanf("%c\n", &numOfReaders);
   printf("Test");
-  printf("%d\n", numOfReaders);
+  printf("%c\n", numOfReaders);
 
 
 
