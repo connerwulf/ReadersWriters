@@ -61,7 +61,8 @@ void * reader_thread(void *arg)
       i++;
     }
   }
-	printf("Reader %d has finished", *(int *) arg);
+
+	printf("Reader %d has finished", &arg);
   return(NULL);
 }
 
@@ -73,7 +74,7 @@ by one 25000 times
 void * writer_thread(void *arg)
 {
 	int line = 0;
-  printf("test- writer");
+
 	while (line < 25000)
 	{
     in_cs = 1;
@@ -119,7 +120,7 @@ int main()
    pthread_attr_init(&attr[0]);
    pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
 
-   printf("Creating Threads...\n");
+
   int k = (int) (numOfReaders/2);
   int i;
   for(i = 0; i < k; i++)
@@ -134,7 +135,7 @@ int main()
   {
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
   }
-  printf("Waiting for Threads...\n");
+
   for(int j = 0; j < numOfReaders; j++)
   {
     if(j = 0)
