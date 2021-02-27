@@ -81,7 +81,7 @@ void * writer_thread(void *arg)
     /* Critical Section */
 	  counter->value = counter->value + 1;
     in_cs = 0;
-    sem_post(&reader);
+    sem_post(&writer);
     line++;
    }
      printf("Writer finished: Counter = %d\n", counter->value);
