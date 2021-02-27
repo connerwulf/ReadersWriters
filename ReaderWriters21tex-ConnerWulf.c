@@ -33,7 +33,7 @@ void * reader_thread(void *arg)
 	int i = 0;
   int value;
 
-  while(i < 250000000)
+  while(i < 25000)
   {
 
     if(in_cs != 1)
