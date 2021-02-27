@@ -32,6 +32,7 @@ void * reader_thread(void *arg)
 {
 	int i = 0;
   int value;
+  printf("test- reader");
   while(i < 250000000)
   {
 
@@ -80,8 +81,9 @@ void * writer_thread(void *arg)
 
     /* Critical Section */
 	  counter->value = counter->value + 1;
-    in_cs = 0;
+
     sem_post(&writer);
+    in_cs = 0;
     line++;
    }
      printf("Writer finished: Counter = %d\n", counter->value);
