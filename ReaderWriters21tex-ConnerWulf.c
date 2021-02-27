@@ -62,7 +62,7 @@ void * reader_thread(void *arg)
     }
   }
 
-	printf("Reader %d has finished", &arg);
+	printf("Reader %d has finished", atoi(&arg));
   return(NULL);
 }
 
