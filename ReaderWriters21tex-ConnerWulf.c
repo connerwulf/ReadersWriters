@@ -38,7 +38,7 @@ void * reader_thread(void *arg)
 
     if(in_cs != 1)
     {
-      printf("test- reader");
+      printf("%d", i);
       if(threadsReading == 0)
       {
         sem_wait(&writer);
