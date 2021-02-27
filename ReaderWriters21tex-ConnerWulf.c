@@ -109,9 +109,10 @@ int main()
 
 
    fflush(stdout);
-   pthread_t readers[numOfReaders];
+   pthread_t *readers;
    pthread_t writer[1];
    pthread_attr_t	attr[1];
+   readers = malloc(sizeof(pthread_t) * numOfReaders);
  /* Required to schedule thread independently.*/
    pthread_attr_init(&attr[0]);
    pthread_attr_setscope(&attr[0], PTHREAD_SCOPE_SYSTEM);
