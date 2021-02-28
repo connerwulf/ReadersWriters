@@ -78,16 +78,16 @@ void * writer_thread(void *arg)
 {
 	int line = 0;
 
-	while (line < 2500000)
+	while (line < 250000000)
 	{
     sem_wait(&test);
-    sem_wait(&writer);
+      sem_wait(&writer);
     sem_post(&test);
     /* Critical Section */
 	  counter->value = counter->value + 1;
 
     sem_post(&writer);
-    in_cs = 0;
+
     line++;
    }
      printf("Writer 0 has finished | Writes: %d | Counter value = %d\n", line, counter->value);
