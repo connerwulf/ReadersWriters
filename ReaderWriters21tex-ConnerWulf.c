@@ -82,7 +82,7 @@ void * writer_thread(void *arg)
     in_cs = 1;
     sem_wait(&test);
     sem_wait(&writer);
-    semp_post(&test);
+    sem_post(&test);
     /* Critical Section */
 	  counter->value = counter->value + 1;
 
