@@ -20,7 +20,7 @@ struct shared_dat  *counter;
 
 int in_cs = 0;
 int threadsReading = 0;
-sem_t reader, writer;
+sem_t reader, writer, test;
 int getpid();
 
 
@@ -40,13 +40,14 @@ void * reader_thread(void *arg)
     {
       //printf("%d\n", i);
 
-
+      sem_wait(&test);
       sem_wait(&reader);
         threadsReading++;
         if(threadsReading == 1)
         {
           sem_wait(&writer);
         }
+      sem_post(&test);
       sem_post(&reader);
 
       value = counter->value;
@@ -79,8 +80,9 @@ void * writer_thread(void *arg)
 	while (line < 25000)
 	{
     in_cs = 1;
+    sem_wait(&test);
     sem_wait(&writer);
-
+    semp_post(&test);
     /* Critical Section */
 	  counter->value = counter->value + 1;
 
@@ -104,6 +106,7 @@ int main()
 	counter->value = 0;
   sem_init(&reader,0,1);
   sem_init(&writer,0,1);
+  sem_init(&test,0,1);
 
 
       printf("How many readers should there be? (1 <= n <= 16):");
