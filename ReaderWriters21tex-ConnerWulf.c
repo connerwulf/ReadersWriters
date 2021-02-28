@@ -34,7 +34,7 @@ void * reader_thread(void *arg)
 	int i = 0;
   int value;
 
-  while(i < 250000)
+  while(i < 250)
   {
     //printf("%d", in_cs);
     // if(in_cs != 1)
@@ -80,7 +80,6 @@ void * writer_thread(void *arg)
 
 	while (line < 25000)
 	{
-    in_cs = 1;
     sem_wait(&test);
     sem_wait(&writer);
     sem_post(&test);
