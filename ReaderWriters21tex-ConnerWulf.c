@@ -50,7 +50,10 @@ void * reader_thread(void *arg)
         }
       sem_post(&test);
       sem_post(&reader);
-
+      if(in_cs == 1)
+      {
+        printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION")
+      }
       value = counter->value;
 
       sem_wait(&reader);
@@ -84,8 +87,9 @@ void * writer_thread(void *arg)
       sem_wait(&writer);
     sem_post(&test);
     /* Critical Section */
+    in_cs = 1;
 	  counter->value = counter->value + 1;
-
+    in_cs = 0;
     sem_post(&writer);
 
     line++;
