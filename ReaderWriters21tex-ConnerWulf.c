@@ -65,7 +65,7 @@ void * reader_thread(void *arg)
     //}
   }
 
-	printf("Reader %d has finished | Counter value = %d\n", reader_id, counter->value);
+	printf("Reader %d has finished | Reads: %d | Counter value = %d\n", reader_id, i, counter->value);
   return(NULL);
 }
 
@@ -90,7 +90,7 @@ void * writer_thread(void *arg)
     in_cs = 0;
     line++;
    }
-     printf("Writer finished: Counter = %d\n", counter->value);
+     printf("Writer 0 has finished | Writes: %d | Counter value = %d\n", line, counter->value);
      return(NULL);
 }
 
