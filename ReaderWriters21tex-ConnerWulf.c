@@ -39,25 +39,26 @@ void * reader_thread(void *arg)
     if(in_cs != 1)
     {
       //printf("%d\n", i);
-      if(threadsReading == 0)
-      {
-        sem_wait(&writer);
-      }
+
 
       sem_wait(&reader);
         threadsReading++;
+        if(threadsReading == 1)
+        {
+          sem_wait(&writer);
+        }
       sem_post(&reader);
 
       value = counter->value;
 
       sem_wait(&reader);
         threadsReading--;
-      sem_post(&reader);
-
       if(threadsReading == 0)
       {
         sem_post(&writer);
       }
+      sem_post(&reader);
+      
       i++;
     }
   }
