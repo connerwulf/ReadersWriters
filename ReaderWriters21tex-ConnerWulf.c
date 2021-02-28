@@ -142,7 +142,7 @@ int main()
 
   for(int j = 0; j < numOfReaders; j++)
   {
-    if(j = 0)
+    if(j == 0)
     {
       printf("WriterJoin\n");
       pthread_join(writer[j], NULL);
