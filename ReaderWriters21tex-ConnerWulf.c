@@ -78,7 +78,7 @@ void * writer_thread(void *arg)
 {
 	int line = 0;
 
-	while (line < 250000000)
+	while (line < 25000000)
 	{
     sem_wait(&test);
       sem_wait(&writer);
