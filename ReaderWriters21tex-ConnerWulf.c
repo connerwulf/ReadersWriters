@@ -42,7 +42,7 @@ void * reader_thread(void *arg)
       //printf("%d\n", i);
 
       sem_wait(&test);
-      sem_wait(&reader);
+        sem_wait(&reader);
         threadsReading++;
         if(threadsReading == 1)
         {
