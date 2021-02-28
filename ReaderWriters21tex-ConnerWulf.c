@@ -64,7 +64,7 @@ void * reader_thread(void *arg)
     //}
   }
 
-	printf("Reader %d has finished", atoi(&arg));
+	printf("Reader %d has finished\n", atoi(&arg));
   return(NULL);
 }
 
@@ -111,7 +111,7 @@ int main()
 
       printf("How many readers should there be? (1 <= n <= 16):");
       scanf(" %d", &numOfReaders);
-      printf("%d", numOfReaders);
+      //printf("%d", numOfReaders);
 
 
 
