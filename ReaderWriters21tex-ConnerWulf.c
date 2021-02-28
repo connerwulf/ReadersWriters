@@ -130,7 +130,7 @@ int main()
   int i;
   for(i = 0; i < k; i++)
   {
-    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
   }
 
 /* Create the writer thread*/
@@ -138,7 +138,7 @@ int main()
 
   for(i = k ; i < numOfReaders; i++)
   {
-    pthread_create(&readers[i], &attr[0], reader_thread, (void*) i);
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
   }
 
   for(int j = 0; j < numOfReaders; j++)
