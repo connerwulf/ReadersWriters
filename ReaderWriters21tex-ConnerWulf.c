@@ -144,10 +144,10 @@ int main()
   {
     if(j = 0)
     {
-      printf("WriterJoin\n")
+      printf("WriterJoin\n");
       pthread_join(writer[j], NULL);
     }
-    printf("ReaderJoin\n")
+    printf("ReaderJoin\n");
     pthread_join(readers[j], NULL);
   }
 
