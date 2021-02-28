@@ -30,6 +30,7 @@ int getpid();
 ****************************************************************/
 void * reader_thread(void *arg)
 {
+  int reader_id = *(int*)arg;
 	int i = 0;
   int value;
 
@@ -64,7 +65,7 @@ void * reader_thread(void *arg)
     //}
   }
 
-	printf("Reader %d has finished\n", atoi(&arg[1]));
+	printf("Reader %d has finished\n", reader_id);
   return(NULL);
 }
 
