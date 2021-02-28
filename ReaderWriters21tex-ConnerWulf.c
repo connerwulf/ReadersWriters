@@ -52,7 +52,7 @@ void * reader_thread(void *arg)
       sem_post(&reader);
       if(in_cs == 1)
       {
-        printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION")
+        printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION");
       }
       value = counter->value;
 
