@@ -35,7 +35,7 @@ void * reader_thread(void *arg)
 
   while(i < 25000)
   {
-
+    printf("%d", in_cs);
     if(in_cs != 1)
     {
       //printf("%d\n", i);
