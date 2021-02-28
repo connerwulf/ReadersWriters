@@ -30,7 +30,8 @@ int getpid();
 ****************************************************************/
 void * reader_thread(void *arg)
 {
-  int reader_id = *(int*)arg;
+  int reader_id = *((int *) arg);
+  pinrtf("%d", reader_id)
 	int i = 0;
   int value;
 
