@@ -147,7 +147,7 @@ int main()
       printf("WriterJoin\n");
       pthread_join(writer[j], NULL);
     }
-    printf("ReaderJoin\n");
+    printf("ReaderJoin %d\n", j);
     pthread_join(readers[j], NULL);
   }
 
