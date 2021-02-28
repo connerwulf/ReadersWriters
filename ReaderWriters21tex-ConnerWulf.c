@@ -33,7 +33,7 @@ void * reader_thread(void *arg)
 	int i = 0;
   int value;
 
-  while(i < 250000000)
+  while(i < 250000)
   {
     //printf("%d", in_cs);
     // if(in_cs != 1)
@@ -144,11 +144,11 @@ int main()
   {
 
     pthread_join(readers[j], NULL);
-    if(j == 0)
-    {
-      pthread_join(writer[j], NULL);
-    }
+
   }
+
+    pthread_join(writer[0], NULL);
+
 
 
 
