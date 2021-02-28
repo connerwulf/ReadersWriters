@@ -36,8 +36,8 @@ void * reader_thread(void *arg)
   while(i < 25000)
   {
     //printf("%d", in_cs);
-    if(in_cs != 1)
-    {
+    // if(in_cs != 1)
+    // {
       //printf("%d\n", i);
 
       sem_wait(&test);
@@ -61,7 +61,7 @@ void * reader_thread(void *arg)
       sem_post(&reader);
 
       i++;
-    }
+    //}
   }
 
 	printf("Reader %d has finished", atoi(&arg));
