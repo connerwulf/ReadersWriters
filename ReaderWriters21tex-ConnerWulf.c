@@ -137,7 +137,9 @@ int main()
   printf("\n%d %d\n\n", k, numOfReaders);
   for(i = k ; i < numOfReaders; i++)
   {
+    printf("\n%d %d\n\n", k, numOfReaders);
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
+    printf("\n%d %d\n\n", k, numOfReaders);
   }
 
   for(int j = 0; j < numOfReaders; j++)
