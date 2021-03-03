@@ -90,7 +90,7 @@ void * writer_thread(void *arg)
     sem_post(&writer);
     in_cs = 0;
 
-     printf("Writer 0 has finished | Writes: %d | Counter value = %d\n", line, counter->value);
+     printf("Writer 0 has finished | Counter value = %d\n", counter->value);
      return(NULL);
 }
 
