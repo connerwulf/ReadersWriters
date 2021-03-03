@@ -66,7 +66,7 @@ void * reader_thread(void *arg)
 
 
 
-	printf("Reader %d has finished | Counter value = %d\n", reader_id, counter->value);
+	printf("Reader %d has finished | Counter value = %d\n", &reader_id, counter->value);
   return(NULL);
 }
 
@@ -139,7 +139,6 @@ int main()
   {
     printf("%d %d\n", i, numOfReaders);
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
-    printf("%d %d\n", i, numOfReaders);
   }
 
   for(int j = 0; j < numOfReaders; j++)
