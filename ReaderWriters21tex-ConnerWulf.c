@@ -134,7 +134,7 @@ int main()
 
 /* Create the writer thread*/
   pthread_create(&writer[0], &attr[0], writer_thread, NULL);
-  printf("%d %D", k, numOfReaders);
+  printf("\n%d %d\n\n", k, numOfReaders);
   for(i = k ; i < numOfReaders; i++)
   {
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
