@@ -32,7 +32,7 @@ void * reader_thread(void *arg)
   int reader_id = *((int *) arg);
 	int i = 0;
   int value;
-
+  print("%d", reader_id);
 
       sem_wait(&fairShot);
         sem_wait(&reader);
