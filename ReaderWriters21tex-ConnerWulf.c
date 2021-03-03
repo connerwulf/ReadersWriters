@@ -48,8 +48,8 @@ void * reader_thread(void *arg)
       {
         printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION");
       }
-
-      while(int i = 0; i < 250000000; i++)
+      int i;
+      while(i = 0; i < 250000000; i++)
       {
         value = counter->value;
       }
@@ -83,7 +83,7 @@ void * writer_thread(void *arg)
     sem_post(&fairShot);
     in_cs = 1;
     /* Critical Section */
-    for(int w = 0; w < 25000; w++;)
+    for(int w = 0; w < 25000; w++)
     {
 	  counter->value = counter->value + 1;
     }
