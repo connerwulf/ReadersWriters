@@ -32,7 +32,7 @@ void * reader_thread(void *arg)
   int reader_id = *((int *) arg);
 	int i = 0;
   int value;
-  printf("%d", reader_id);
+
 
       sem_wait(&fairShot);
         sem_wait(&reader);
@@ -134,7 +134,7 @@ int main()
 
 /* Create the writer thread*/
   pthread_create(&writer[0], &attr[0], writer_thread, NULL);
-
+  printf("%d %D", k, numOfReaders);
   for(i = k ; i < numOfReaders; i++)
   {
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
