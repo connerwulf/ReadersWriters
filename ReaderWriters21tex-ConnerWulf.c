@@ -20,8 +20,7 @@ struct shared_dat  *counter;
 
 int in_cs = 0;
 int threadsReading = 0;
-sem_t reader, writer, test;
-int getpid();
+sem_t reader, writer, fairShot;
 
 
 /****************************************************************
@@ -34,27 +33,26 @@ void * reader_thread(void *arg)
 	int i = 0;
   int value;
 
-  while(i < 25000)
-  {
-    //printf("%d", in_cs);
-    // if(in_cs != 1)
-    // {
-      //printf("%d\n", i);
 
-      sem_wait(&test);
+      sem_wait(&fairShot);
         sem_wait(&reader);
         threadsReading++;
         if(threadsReading == 1)
         {
           sem_wait(&writer);
         }
-      sem_post(&test);
+      sem_post(&fairShot);
       sem_post(&reader);
+
       if(in_cs == 1)
       {
         printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION");
       }
-      value = counter->value;
+
+      while(int i = 0; i < 250000000; i++)
+      {
+        value = counter->value;
+      }
 
       sem_wait(&reader);
         threadsReading--;
@@ -64,9 +62,9 @@ void * reader_thread(void *arg)
       }
       sem_post(&reader);
 
-      i++;
-    //}
-  }
+
+
+
 
 	printf("Reader %d has finished | Reads: %d | Counter value = %d\n", reader_id, i, counter->value);
   return(NULL);
@@ -79,21 +77,19 @@ by one 25000 times
 ****************************************************************/
 void * writer_thread(void *arg)
 {
-	int line = 0;
 
-	while (line < 30000)
-	{
-    sem_wait(&test);
+    sem_wait(&fairShot);
       sem_wait(&writer);
-    sem_post(&test);
-    /* Critical Section */
+    sem_post(&fairShot);
     in_cs = 1;
+    /* Critical Section */
+    for(int w = 0; w < 25000; w++;)
+    {
 	  counter->value = counter->value + 1;
-    in_cs = 0;
+    }
     sem_post(&writer);
+    in_cs = 0;
 
-    line++;
-   }
      printf("Writer 0 has finished | Writes: %d | Counter value = %d\n", line, counter->value);
      return(NULL);
 }
@@ -110,7 +106,7 @@ int main()
 	counter->value = 0;
   sem_init(&reader,0,1);
   sem_init(&writer,0,1);
-  sem_init(&test,0,1);
+  sem_init(&fairShot,0,1);
 
 
       printf("How many readers should there be? (1 <= n <= 16):");
@@ -154,13 +150,6 @@ int main()
     pthread_join(writer[0], NULL);
 
 
-
-
-	// printf("from parent counter  =  %d\n", counter->value);
-  // getrusage(RUSAGE_SELF, &mytiming);
-  // printf("Time used is sec: %d, usec %d\n",mytiming.ru_utime.tv_sec,mytiming.ru_utime.tv_usec);
-  // printf("System Time used is sec: %d, usec %d\n",mytiming.ru_stime.tv_sec,mytiming.ru_stime.tv_usec);
-	// printf("---------------------------------------------------------------------------\n");
 	 printf("\t\t	End of simulation\n");
 
 	exit(0);
