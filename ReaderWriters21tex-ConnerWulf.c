@@ -48,7 +48,7 @@ void * reader_thread(void *arg)
       {
         printf("ERROR: BOTH READERS AND WRITERS ARE IN CRITICAL SECTION");
       }
-      int i;
+      
       while(i = 0; i < 250000000; i++)
       {
         value = counter->value;
