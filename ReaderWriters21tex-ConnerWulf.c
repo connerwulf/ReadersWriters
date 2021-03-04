@@ -136,7 +136,7 @@ int main()
 
   for(i = 0; i < k; i++)
   {
-    int temp = i
+    
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &readNums[i]);
   }
 
