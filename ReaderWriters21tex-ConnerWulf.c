@@ -10,7 +10,21 @@
 
 
 
-/* Student: Conner Wulf. */
+/* Student: Conner Wulf.
+
+In order to solve this problem I tried using a semaphore to "Communicate" between
+the readers and writer. The idea was to half a universal semaphore, which I called fairShot.
+The first thing each thread does is call sem_wait(&fairShot). This enures fairness because all of
+the threads, reader or writer, will enter a wait queue, all an equal shot to access their critical sections.
+
+If a reader is the first reader to arrive at their critical section then it locks out the writer from entering its critical
+section until all readers are no longer in their critical section.
+
+Once it is the writers turn, after calling sem_wait(&fairShot), it will block any other readers from entering the their CRITICAL
+section by calling sem_wait(&readers). All of the readers in their critical section will finish, signal the writer and then the writier will finsih
+After the writer is done it releases the writer semaphore, letting other readers into their critical sections
+
+*/
 
 //Global Variables
 struct rusage mytiming;
