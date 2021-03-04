@@ -123,7 +123,7 @@ int main()
 	counter->value = 0;
 
   //Prompt user to set how many threads there should be
-  printf("How many readers should there be? (1 <= n <= 16):");
+  printf("How many readers should there be? (1 <= n < 16):");
   scanf(" %d", &numOfReaders);
 
   //Initial semaphore used to control access to for the readers shared counter (threadsReading)
