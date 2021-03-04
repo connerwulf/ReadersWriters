@@ -79,7 +79,7 @@ void * reader_thread(void *arg)
 
 
 
-	printf("\nReader %d has finished | Counter value = %d\n\n", reader_id, counter->value);
+	printf("Reader %d has finished | Counter value = %d\n", reader_id, counter->value);
   return(NULL);
 }
 
@@ -106,7 +106,7 @@ void * writer_thread(void *arg)
     sem_post(&writer);
     in_cs = 0;
 
-     printf("Writer 0 has finished | Counter value = %d\n", counter->value);
+     printf("\nWriter 0 has finished | Counter value = %d\n\n", counter->value);
      return(NULL);
 }
 
