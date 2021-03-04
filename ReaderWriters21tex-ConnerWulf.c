@@ -126,10 +126,18 @@ int main()
 
 
   int k = (int) (numOfReaders/2);
-  int i;
+  int i = 0;
+  int readNums[numOfReaders];
+  for(i=0; i< numOfReaders; i++)
+  {
+    readNums[i] = i;
+  }
+
+
   for(i = 0; i < k; i++)
   {
-    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
+    int temp = i
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &readNums[i]);
   }
 
 /* Create the writer thread*/
@@ -138,7 +146,7 @@ int main()
   for(i = k ; i < numOfReaders; i++)
   {
     printf("%d %d\n", i, numOfReaders);
-    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &i);
+    pthread_create(&readers[i], &attr[0], reader_thread, (void*) &readNums[i]);
   }
 
   for(int j = 0; j < numOfReaders; j++)
