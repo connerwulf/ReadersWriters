@@ -176,6 +176,9 @@ int main()
     pthread_create(&readers[i], &attr[0], reader_thread, (void*) &readNums[i]);
   }
 
+  //Wait for the writer thread to finish
+      pthread_join(writer[0], NULL);
+
 //Wait for the reader threads to finish
   for(int j = 0; j < numOfReaders; j++)
   {
@@ -184,8 +187,7 @@ int main()
 
   }
 
-//Wait for the writer thread to finish
-    pthread_join(writer[0], NULL);
+
 
 
 	 printf("\t\t	End of simulation\n");
