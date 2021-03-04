@@ -190,7 +190,7 @@ int main()
 
 
 
-	 printf("\t\t	End of simulation\n");
+	 printf("\n\t\t	End of simulation\n\n");
 
 	exit(0);
 
