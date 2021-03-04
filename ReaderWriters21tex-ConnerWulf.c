@@ -125,7 +125,7 @@ int main()
   //Prompt user to set how many threads there should be
   printf("How many readers should there be? (1 <= n < 16):");
   scanf(" %d", &numOfReaders);
-
+  printf("\n");
   //Initial semaphore used to control access to for the readers shared counter (threadsReading)
   sem_init(&reader,0,1);
   //Initial semaphore used to control access to for the writers critical section
