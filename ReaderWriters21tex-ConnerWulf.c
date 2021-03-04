@@ -79,7 +79,7 @@ void * reader_thread(void *arg)
 
 
 
-	printf("Reader %d has finished | Counter value = %d\n", reader_id, counter->value);
+	printf("\nReader %d has finished | Counter value = %d\n\n", reader_id, counter->value);
   return(NULL);
 }
 
